@@ -135,7 +135,7 @@ def search_pages_with_wordlist(pages_file, wordlist_file, output_file):
                 print(f"Testing: {test_url}")
                 response = requests.get(test_url)
                 if response.status_code == 200:
-                    results.add(test_url)  # Add to set
+                    results.add(test_url)  
                     print(f"Found: {test_url}")
             except requests.RequestException as e:
                 print(f"Error fetching {test_url}: {e}")
