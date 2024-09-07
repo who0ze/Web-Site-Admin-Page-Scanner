@@ -127,7 +127,7 @@ def search_pages_with_wordlist(pages_file, wordlist_file, output_file):
     pages = [page.strip() for page in pages]
     words = [word.strip() for word in words]
     
-    results = []
+    results = set()  
     for page in pages:
         for word in words:
             test_url = f"{page.rstrip('/')}/{word}"
@@ -135,14 +135,14 @@ def search_pages_with_wordlist(pages_file, wordlist_file, output_file):
                 print(f"Testing: {test_url}")
                 response = requests.get(test_url)
                 if response.status_code == 200:
-                    results.append(test_url)
+                    results.add(test_url)  # Add to set
                     print(f"Found: {test_url}")
             except requests.RequestException as e:
                 print(f"Error fetching {test_url}: {e}")
                 continue
     
     with open(output_file, "w", encoding="utf-8") as file:
-        for result in results:
+        for result in sorted(results):  
             file.write(f"{result}\n")
     
     print(f"Search results saved to {output_file}")
@@ -157,8 +157,8 @@ if __name__ == "__main__":
     print(r" ________  _____  ____  _____  ______   ________  _______                                          ")
     print(r"|_   __  ||_   _||_   \|_   _||_   _ `.|_   __  ||_   __ \                                         ")
     print(r"  | |_ \_|  | |    |   \ | |    | | `. \ | |_ \_|  | |__) |                                        ")
-    print(r"  |  _|     | |    | |\ \| |    | |  | | |  _| _   |  __ /                Created by who0ze                         ")
-    print(r" _| |_     _| |_  _| |_\   |_  _| |_.' /_| |__/ | _| |  \ \_              https://github.com/who0ze                         ")
+    print(r"  |  _|     | |    | |\ \| |    | |  | | |  _| _   |  __ /                Created by who0ze        ")
+    print(r" _| |_     _| |_  _| |_\   |_  _| |_.' /_| |__/ | _| |  \ \_              https://github.com/who0ze")
     print(r"|_____|   |_____||_____|\____||______.'|________||____| |___|                                      ")
     print(r"                                                                                                   ")
     language = display_language_selection()
